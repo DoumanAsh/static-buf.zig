@@ -24,13 +24,13 @@ fn maxInt(comptime T: type) comptime_int {
 
 test "len type" {
     const ArrayU8 = buf.Array(u8, 255);
-    try testing.expect(@typeInfo(ArrayU8).Struct.fields[1].type == u8);
+    try testing.expect(@typeInfo(ArrayU8).@"struct".fields[1].type == u8);
 
     const ArrayU16 = buf.Array(u8, 65_535);
-    try testing.expect(@typeInfo(ArrayU16).Struct.fields[1].type == u16);
+    try testing.expect(@typeInfo(ArrayU16).@"struct".fields[1].type == u16);
 
     const ArrayU32 = buf.Array(u8, 4_294_967_295);
-    try testing.expect(@typeInfo(ArrayU32).Struct.fields[1].type == u32);
+    try testing.expect(@typeInfo(ArrayU32).@"struct".fields[1].type == u32);
 }
 
 test "fill buf" {

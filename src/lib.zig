@@ -16,9 +16,9 @@ fn take(comptime T: type, ptr: *T) T {
 
 fn maxInt(comptime T: type) comptime_int {
     const info = @typeInfo(T);
-    const bit_count = info.Int.bits;
+    const bit_count = info.int.bits;
     if (bit_count == 0) return 0;
-    return (1 << (bit_count - @intFromBool(info.Int.signedness == .signed))) - 1;
+    return (1 << (bit_count - @intFromBool(info.int.signedness == .signed))) - 1;
 }
 
 fn size_type(comptime LEN: usize) type {
