@@ -5,26 +5,25 @@ const package_path = "src/lib.zig";
 
 pub fn build(builder: *std.Build) void {
     const target = builder.standardTargetOptions(.{});
-    const optimize = builder.standardOptimizeOption(.{});
-
-    const lib = builder.addStaticLibrary(.{
-        .name = package_name,
-        .root_source_file = builder.path(package_path),
-        .target = target,
-        .optimize = optimize,
-    });
 
     const lib_module = builder.addModule(package_name, .{
+        .target = target,
         .root_source_file = builder.path(package_path),
         .imports = &.{},
+    });
+    const lib = builder.addLibrary(.{
+        .name = package_name,
+        .linkage = std.builtin.LinkMode.static,
+        .root_module = lib_module
     });
 
     builder.installArtifact(lib);
 
     const tests = builder.addTest(.{
-        .root_source_file = builder.path("tests/buf.zig"),
-        .target = target,
-        .optimize = optimize,
+        .root_module = builder.createModule(.{
+            .target = target,
+            .root_source_file = builder.path("tests/buf.zig"),
+        }),
     });
 
     tests.root_module.addImport(package_name, lib_module);

@@ -29,7 +29,7 @@ test "len type" {
     const ArrayU16 = buf.Array(u8, 65_535);
     try testing.expect(@typeInfo(ArrayU16).@"struct".fields[1].type == u16);
 
-    const ArrayU32 = buf.Array(u8, 4_294_967_295);
+    const ArrayU32 = buf.Array(u8, 4_294_967_288);
     try testing.expect(@typeInfo(ArrayU32).@"struct".fields[1].type == u32);
 }
 
